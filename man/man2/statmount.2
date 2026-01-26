@@ -60,6 +60,7 @@ Standard C library
 .B "    __u32  mnt_uidmap;"
 .B "    __u32  mnt_gidmap_num;"
 .B "    __u32  mnt_gidmap;"
+.B "    __u64  supported_mask;"
 .B "    char   str[];"
 .B };
 .EE
@@ -126,6 +127,7 @@ STATMOUNT_OPT_ARRAY	/* Want/got opt_... */
 STATMOUNT_OPT_SEC_ARRAY	/* Want/got opt_sec... */
 STATMOUNT_MNT_UIDMAP	/* Want/got uidmap... */
 STATMOUNT_MNT_GIDMAP	/* Want/got gidmap... */
+STATMOUNT_SUPPORTED_MASK	/* Want/got supported mask flags */
 .TE
 .in
 .P
@@ -313,6 +315,7 @@ buffer that contains security options separated by null bytes.
 They can be iterated over the help of
 .IR smbuf.opt_sec_num .
 .TP
+.TP
 .I smbuf.mnt_uidmap_num
 The number of uid mappings in case of an idmapped mount.
 If STATMOUNT_UIDMAP was not unset and this field is 0, the mount is not an idmapped mount.
@@ -339,6 +342,12 @@ buffer that contains uid mappings as string array separated by null bytes.
 They can be iterated over with the help of
 .IR smbuf.mnt_gidmap_num .
 The whole range of gid mappings must be resolvable in the caller's user namespace.
+.TP
+.TP
+.I smbuf.supported_mask
+The ORed combination of
+.BI STATMOUNT_ *
+flags supported by the current kernel.
 .TP
 .SH RETURN VALUE
 On success, zero is returned.
